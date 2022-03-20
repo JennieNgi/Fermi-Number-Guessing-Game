@@ -19,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame{
 	private JTextField txtInputOne;
@@ -44,11 +45,11 @@ public class MainFrame extends JFrame{
 		this.setResizable(false);
 		
 		// create random numbers and store in the array
-		numberOne = 1;
+		numberOne = 8;
 		numberOneStr = Integer.toString(numberOne);
-		numberTwo = 2;
+		numberTwo = 4;
 		numberTwoStr = Integer.toString(numberTwo);
-		numberThree = 3;
+		numberThree = 5;
 		numberThreeStr = Integer.toString(numberThree);
 		
 		numberArray = new String[]{numberOneStr, numberTwoStr, numberThreeStr};
@@ -86,9 +87,6 @@ public class MainFrame extends JFrame{
 				textFieldValidator.check();
 			}
 		});
-		
-		
-		
 		
 		btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
@@ -161,16 +159,73 @@ public class MainFrame extends JFrame{
 	// ------------------------------------------- event handlers for Ok button
     private void onSubmit(ActionEvent e) {
     	inputArray = new String[]{txtInputOne.getText(), txtInputTwo.getText(), txtInputThree.getText()};
-    	hint = " ";
+    	ArrayList<String> duplicateArray = new ArrayList<String>();
+    	hint = "";
+    	
     	for (int i = 0; i < 3; i++) {
     		if (numberArray[i].equals(inputArray[i])) {
     			hint = hint + "Fermi" + " ";
-        	}else if (Arrays.asList(numberArray).contains(inputArray[i]) == true) {
-        		hint = hint + "Pico" + " ";
-        	}else {
-        		hint = hint + "Nano" + " ";
         	}
     	}
+    	
+    	System.out.println(hint);
+    	
+//    	if (inputArray[0].equals(inputArray[1]) && !(numberArray[0].equals(inputArray[0]))){
+//    		hint = hint + "Nano" + " ";
+//    	}
+//    	
+//    	if (inputArray[0].equals(inputArray[2]) && !(numberArray[0].equals(inputArray[0]))){
+//    		hint = hint + "Nano" + " ";
+//    	}
+//    	
+//    	if (inputArray[1].equals(inputArray[0]) && !(numberArray[0].equals(inputArray[0]))){
+//    		hint = hint + "Nano" + " ";
+//    	}
+//    	
+//    	if (inputArray[1].equals(inputArray[2]) && !(numberArray[0].equals(inputArray[0]))){
+//    		hint = hint + "Nano" + " ";
+//    	}
+//    	
+//    	if (inputArray[2].equals(inputArray[0]) && !(numberArray[0].equals(inputArray[0]))){
+//    		hint = hint + "Nano" + " ";
+//    	}
+//    	
+//    	if (inputArray[2].equals(inputArray[1]) && !(numberArray[0].equals(inputArray[0]))){
+//    		hint = hint + "Nano" + " ";
+//    	}
+
+//    	for (int i = 0; i < 3; i++) {
+//    		if (Arrays.asList(numberArray).contains(inputArray[i]) == true && !(numberArray[i].equals(inputArray[i]))){
+//    			hint = hint + "Pico" + " ";
+//        	}
+//    	}
+    	
+    	for (int i = 0; i < 3; i++) {
+    		if (!(Arrays.asList(numberArray).contains(inputArray[i])) == true && !(numberArray[i].equals(inputArray[i]))){
+    			hint = hint + "Nano" + " ";
+        	}
+    	}
+    	
+
+//    	for (int i = 0; i < 3; i++) {
+//    		if (numberArray[i].equals(inputArray[i])) {
+//    			hint = hint + "Fermi" + " ";
+//        	}else if (Arrays.asList(numberArray).contains(inputArray[i]) == true) {
+//        		if (duplicateArray.contains(inputArray[i]) == true) {
+//            		hint = hint + "Nano" + " ";
+//            	// check for the first case
+//            	}else if (inputArray[0].equals(inputArray[1])) {
+//            		hint = hint + "Nano" + " ";
+//            	}else {
+//            		hint = hint + "Pico" + " ";
+//            	}
+//        	}else {
+//        		hint = hint + "Nano" + " ";
+//        	}
+//    		// the element is added after checking to the first input
+//    		duplicateArray.add(inputArray[i]);
+//    	}
+
     	counter = counter + 1;
     	String counterStr = String.valueOf(counter);  
     	if (numberArray[0].equals(inputArray[0]) && numberArray[1].equals(inputArray[1]) && numberArray[2].equals(inputArray[2])){
