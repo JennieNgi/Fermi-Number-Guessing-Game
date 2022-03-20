@@ -8,6 +8,7 @@ public class TextFieldValidator {
 	private String regExp = "\\w";
 	private Color errorColor = Color.RED;
 	private JTextField target;
+	private boolean errorStatus;
 	
 	public TextFieldValidator(JTextField myTarget, Color myErrorColor) {
 		setErrorColor(myErrorColor);
@@ -28,15 +29,17 @@ public class TextFieldValidator {
 	
 	public boolean check() {
 		if (target.getText().matches(regExp)) {
-			return true;
+			target.setBorder(new JTextField().getBorder());
+			errorStatus = true;
 		}else {
 			target.setBorder(new LineBorder(errorColor, 2));
-			return false;
+			errorStatus = false;
 		}
+		return errorStatus;
 	}
 	
 	public void reset() {
-			
+		target.setBorder(new JTextField().getBorder());
 	}
 	
 	
