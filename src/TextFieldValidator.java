@@ -27,9 +27,12 @@ public class TextFieldValidator {
 		errorColor = myColor;
     }
 	
+	public boolean getErrorStatus() {
+		return errorStatus;
+	}
+	
 	public boolean check() {
 		if (target.getText().matches(regExp)) {
-			target.setBorder(new JTextField().getBorder());
 			errorStatus = true;
 		}else {
 			target.setBorder(new LineBorder(errorColor, 2));
@@ -39,7 +42,7 @@ public class TextFieldValidator {
 	}
 	
 	public void reset() {
-		target.setBorder(new JTextField().getBorder());
+			target.setBorder(new JTextField().getBorder());
 	}
 	
 	
