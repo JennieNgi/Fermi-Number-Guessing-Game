@@ -4,11 +4,10 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 public class TextFieldValidator {
-	// "\\w" = [a-zA-Z0-9_]
-	private String regExp = "\\w";
+	private String regExp = "^[0-9]$";
 	private Color errorColor = Color.RED;
 	private JTextField target;
-	private boolean errorStatus;
+	private boolean validateStatus;
 	
 	public TextFieldValidator(JTextField myTarget, Color myErrorColor) {
 		setErrorColor(myErrorColor);
@@ -27,18 +26,18 @@ public class TextFieldValidator {
 		errorColor = myColor;
     }
 	
-	public boolean getErrorStatus() {
-		return errorStatus;
+	public boolean getValidateStatus() {
+		return validateStatus;
 	}
 	
 	public boolean check() {
 		if (target.getText().matches(regExp)) {
-			errorStatus = true;
+			validateStatus = true;
 		}else {
 			target.setBorder(new LineBorder(errorColor, 2));
-			errorStatus = false;
+			validateStatus = false;
 		}
-		return errorStatus;
+		return validateStatus;
 	}
 	
 	public void reset() {

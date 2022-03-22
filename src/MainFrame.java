@@ -20,25 +20,28 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame{
 	private JTextField txtInputOne;
+	private JTextField txtInputTwo;
+	private JTextField txtInputThree;
 	private TextFieldValidator textFieldValidator1;
 	private TextFieldValidator textFieldValidator2;
 	private TextFieldValidator textFieldValidator3;
-	private JTextField txtInputTwo;
-	private JTextField txtInputThree;
 	private JTextArea txtOutput;
-	private int numberOne;
-	private String numberOneStr;
-	private int numberTwo;
-	private String numberTwoStr;
-	private int numberThree;
-	private String numberThreeStr;
-	private String[] numberArray;
+	
+	private Fermi fermi;
+
+//	private Set<String>numberArray;
+	private List<String> numberList;
 	private String[] inputArray;
-	private String hint;
+	
+//	private String hint;
 	private int counter = 0;
 	private JButton btnOk;
 	private JScrollPane scrollPane;
@@ -49,15 +52,12 @@ public class MainFrame extends JFrame{
 		this.setResizable(false);
 		
 		// create random numbers and store in the array
-		numberOne = 9;
-		numberOneStr = Integer.toString(numberOne);
-		numberTwo = 4;
-		numberTwoStr = Integer.toString(numberTwo);
-		numberThree = 0;
-		numberThreeStr = Integer.toString(numberThree);
-		
-		numberArray = new String[]{numberOneStr, numberTwoStr, numberThreeStr};
-
+		fermi = new Fermi();
+		fermi.setRandomNumList(3, 9, 0);    
+	    numberList = fermi.getRandomNumberList();
+	    
+	    System.out.println(fermi.getRandomNumberList());
+	    
 
 		JLabel lblTitle = new JLabel("Fermi Guessing Game");
 		
@@ -79,23 +79,31 @@ public class MainFrame extends JFrame{
 		textFieldValidator3 = new TextFieldValidator(txtInputThree);
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				textFieldValidator1.check();
-				if (textFieldValidator1.getErrorStatus() == true) {
-					textFieldValidator1.reset();
-				}
-				
 				textFieldValidator2.check();
-				if (textFieldValidator2.getErrorStatus() == true) {
-					textFieldValidator2.reset();
-				}
-				
 				textFieldValidator3.check();
-				if (textFieldValidator3.getErrorStatus() == true) {
+				
+				if (textFieldValidator1.getValidateStatus() == true) {
 					textFieldValidator1.reset();
+				}else {
+					textFieldValidator1.check();
 				}
 				
-				if (textFieldValidator1.getErrorStatus() == true && textFieldValidator2.getErrorStatus() == true && textFieldValidator3.getErrorStatus() == true) {
+				
+				if (textFieldValidator2.getValidateStatus() == true) {
+					textFieldValidator2.reset();
+				}else {
+					textFieldValidator2.check();
+				}
+				
+				
+				if (textFieldValidator3.getValidateStatus() == true) {
+					textFieldValidator3.reset();
+				}else {
+					textFieldValidator3.check();
+				}
+				
+				if (textFieldValidator1.getValidateStatus() == true && textFieldValidator2.getValidateStatus() == true && 					textFieldValidator3.getValidateStatus() == true) {
 					onSubmit(e);
 				}
 			}
@@ -175,93 +183,20 @@ public class MainFrame extends JFrame{
 	// ------------------------------------------- event handlers for Ok button
     private void onSubmit(ActionEvent e) {
     	inputArray = new String[]{txtInputOne.getText(), txtInputTwo.getText(), txtInputThree.getText()};
-//    	ArrayList<String> duplicateArray = new ArrayList<String>();
-    	hint = "";
     	
-    	
-    	
-    	for (int i = 0; i < 3; i++) {
-    		if (numberArray[i].equals(inputArray[i])) {
-    			hint = hint + "Fermi" + " ";
-    			// do the validation for duplicate input 
-    			if (inputArray[i] == inputArray[1]) {
-    				if (inputArray[i].equals(inputArray[i-1])) {
-    					inputArray[i-1] = "duplicate";
-    				}if (inputArray[i].equals(inputArray[i+1])) {
-    					inputArray[i+1] = "duplicate";
-    				}
-    			}
-				else if (inputArray[i] == inputArray[0]) {
-    				if (inputArray[i].equals(inputArray[i+1])) {
-    					inputArray[i+1] = "duplicate";
-    				}if (inputArray[i].equals(inputArray[i+2])) {
-    					inputArray[i+2] = "duplicate";
-    				}
-				}
-			
-				else if (inputArray[i] == inputArray[2]) {
-    				if (inputArray[i].equals(inputArray[i-1])) {
-    					inputArray[i-1] = "duplicate";
-    				}if (inputArray[i].equals(inputArray[i-2])) {
-    					inputArray[i-2] = "duplicate";
-    				}
-				}
-    		}
-    	}
-   
- 
-    	System.out.println(inputArray[0]);
-    	System.out.println(inputArray[1]);
-    	System.out.println(inputArray[2]);
-    	
-    	
-    	for (int j = 0; j < 3; j++) {
-    		if (!(numberArray[j].equals(inputArray[j])) && 
-    				Arrays.asList(numberArray).contains(inputArray[j]) ) {
-    			hint = hint + "Pico" + " ";	
-    			// do the validation for duplicate input 
-    			if (inputArray[j] == inputArray[1]) {
-    				if (inputArray[j].equals(inputArray[j-1])) {
-    					inputArray[j-1] = "duplicate";
-    				}if (inputArray[j].equals(inputArray[j+1])) {
-    					inputArray[j+1] = "duplicate";
-    				}
-    			}
-				else if (inputArray[j] == inputArray[0]) {
-    				if (inputArray[j].equals(inputArray[j+1])) {
-    					inputArray[j+1] = "duplicate";
-    				}if (inputArray[j].equals(inputArray[j+2])) {
-    					inputArray[j+2] = "duplicate";
-    				}
-				}
-			
-				else if (inputArray[j] == inputArray[2]) {
-    				if (inputArray[j].equals(inputArray[j-1])) {
-    					inputArray[j-1] = "duplicate";
-    				}if (inputArray[j].equals(inputArray[j-2])) {
-    					inputArray[j-2] = "duplicate";
-    				}
-				}
-        	}
-    	}
-
-    	for (int k = 0; k < 3; k++) {
-    		if (!(Arrays.asList(numberArray).contains(inputArray[k])) == true && !(numberArray[k].equals(inputArray[k])) ){
-    			hint = hint + "Nano" + " ";
-        	}
-    	}
+    	fermi.generateHint(inputArray, numberList);
     	
     	counter = counter + 1;
     	String counterStr = String.valueOf(counter);  
-    	if (numberArray[0].equals(inputArray[0]) && numberArray[1].equals(inputArray[1]) && numberArray[2].equals(inputArray[2])){
-    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + hint + "\n");
+    	if ((numberList.get(0)).equals(inputArray[0]) && (numberList.get(1)).equals(inputArray[1]) && (numberList.get(2)).equals(inputArray[2])){
+    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + fermi.getHint() + "\n");
     		txtOutput.append("Congratulations! Guesses: " + counterStr);
     		txtInputOne.setEnabled(false); 
     		txtInputTwo.setEnabled(false); 
     		txtInputThree.setEnabled(false); 
     		btnOk.setEnabled(false); 
     	}else {
-    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + hint + "\n");
+    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + fermi.getHint() + "\n");
     	}
     }
     
