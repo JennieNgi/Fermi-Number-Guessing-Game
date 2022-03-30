@@ -37,11 +37,9 @@ public class MainFrame extends JFrame{
 	
 	private Fermi fermi;
 
-//	private Set<String>numberArray;
 	private List<String> numberList;
 	private String[] inputArray;
 	
-//	private String hint;
 	private int counter = 0;
 	private JButton btnOk;
 	private JScrollPane scrollPane;
@@ -53,6 +51,7 @@ public class MainFrame extends JFrame{
 		
 		// create random numbers and store in the array
 		fermi = new Fermi();
+		
 		fermi.setRandomNumList(3, 9, 0);    
 	    numberList = fermi.getRandomNumberList();
 	    
@@ -77,6 +76,10 @@ public class MainFrame extends JFrame{
 		textFieldValidator1 = new TextFieldValidator(txtInputOne);
 		textFieldValidator2 = new TextFieldValidator(txtInputTwo);
 		textFieldValidator3 = new TextFieldValidator(txtInputThree);
+		textFieldValidator1.setRegExp("^[0-9]$");
+		textFieldValidator2.setRegExp("^[0-9]$");
+		textFieldValidator3.setRegExp("^[0-9]$");
+		
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textFieldValidator1.check();
@@ -136,7 +139,7 @@ public class MainFrame extends JFrame{
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 										.addComponent(btnOk)
-										.addComponent(txtInputThree, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtInputThree, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, 											GroupLayout.PREFERRED_SIZE)
 										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 											.addComponent(txtInputTwo, Alignment.LEADING)
 											.addComponent(txtInputOne, Alignment.LEADING)))))
@@ -189,28 +192,42 @@ public class MainFrame extends JFrame{
     	counter = counter + 1;
     	String counterStr = String.valueOf(counter);  
     	if ((numberList.get(0)).equals(inputArray[0]) && (numberList.get(1)).equals(inputArray[1]) && (numberList.get(2)).equals(inputArray[2])){
-    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + fermi.getHint() + "\n");
+    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + fermi.getHint() + 			"\n");
     		txtOutput.append("Congratulations! Guesses: " + counterStr);
     		txtInputOne.setEnabled(false); 
     		txtInputTwo.setEnabled(false); 
     		txtInputThree.setEnabled(false); 
     		btnOk.setEnabled(false); 
     	}else {
-    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + fermi.getHint() + "\n");
+    		txtOutput.append(txtInputOne.getText() + " " + txtInputTwo.getText() + " " + txtInputThree.getText() + " : " + fermi.getHint() + 			"\n");
     	}
     }
     
     // ------------------------------------------- event handlers for Reset button
     private void onReset(ActionEvent e) {
+    	// regenerate a new set of random number
+    	fermi.setRandomNumList(3, 9, 0);   
+    	numberList = fermi.getRandomNumberList();
+    	System.out.println(fermi.getRandomNumberList());
+    	
+    	// counter set back to zero
     	counter = 0;
+    	
+    	// enable the textfields
     	txtInputOne.setEnabled(true); 
 		txtInputTwo.setEnabled(true); 
 		txtInputThree.setEnabled(true); 
+		
+		// enable the ok button
 		btnOk.setEnabled(true); 
+		
+		// empty all text fields
     	txtInputOne.setText("");
     	txtInputTwo.setText("");      
     	txtInputThree.setText("");
        	txtOutput.setText("");
+       	
+       	// change the focus back to input one
        	txtInputOne.requestFocusInWindow();
     }
 	

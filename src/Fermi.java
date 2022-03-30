@@ -11,6 +11,13 @@ public class Fermi{
 	private List<String> numberStrList;
 	private String hint;
 	
+	public Fermi() {
+		numberArray = new LinkedHashSet<String>();
+		randNum = new Random();
+		numberStrList = new ArrayList<>();
+		hint = "";
+	}
+	
 	public String getHint() {
 		return hint;
 	}
@@ -21,8 +28,9 @@ public class Fermi{
 	
 	// 
 	public List<String> setRandomNumList(int num, int max, int min) {
+		// LinkedHashSet will check whether the element exist or not
+		numberArray = new LinkedHashSet<String>();
 		randNum = new Random();
-	    numberArray = new LinkedHashSet<String>();
 	    while (numberArray.size() < num) {
 	    	numberArray.add((Integer.toString(randNum.nextInt(max) + min)));
 	    }
@@ -39,14 +47,16 @@ public class Fermi{
     			if (inputArray[i] == inputArray[1]) {
     				if (inputArray[i].equals(inputArray[i-1])) {
     					inputArray[i-1] = "duplicate";
-    				}if (inputArray[i].equals(inputArray[i+1])) {
+    				}
+    				if (inputArray[i].equals(inputArray[i+1])) {
     					inputArray[i+1] = "duplicate";
     				}
     			}
 				else if (inputArray[i] == inputArray[0]) {
     				if (inputArray[i].equals(inputArray[i+1])) {
     					inputArray[i+1] = "duplicate";
-    				}if (inputArray[i].equals(inputArray[i+2])) {
+    				}
+    				if (inputArray[i].equals(inputArray[i+2])) {
     					inputArray[i+2] = "duplicate";
     				}
 				}
@@ -54,7 +64,8 @@ public class Fermi{
 				else if (inputArray[i] == inputArray[2]) {
     				if (inputArray[i].equals(inputArray[i-1])) {
     					inputArray[i-1] = "duplicate";
-    				}if (inputArray[i].equals(inputArray[i-2])) {
+    				}
+    				if (inputArray[i].equals(inputArray[i-2])) {
     					inputArray[i-2] = "duplicate";
     				}
 				}
@@ -69,14 +80,16 @@ public class Fermi{
     			if (inputArray[j] == inputArray[1]) {
     				if (inputArray[j].equals(inputArray[j-1])) {
     					inputArray[j-1] = "duplicate";
-    				}if (inputArray[j].equals(inputArray[j+1])) {
+    				}
+    				if (inputArray[j].equals(inputArray[j+1])) {
     					inputArray[j+1] = "duplicate";
     				}
     			}
 				else if (inputArray[j] == inputArray[0]) {
     				if (inputArray[j].equals(inputArray[j+1])) {
     					inputArray[j+1] = "duplicate";
-    				}if (inputArray[j].equals(inputArray[j+2])) {
+    				}
+    				if (inputArray[j].equals(inputArray[j+2])) {
     					inputArray[j+2] = "duplicate";
     				}
 				}
@@ -84,7 +97,8 @@ public class Fermi{
 				else if (inputArray[j] == inputArray[2]) {
     				if (inputArray[j].equals(inputArray[j-1])) {
     					inputArray[j-1] = "duplicate";
-    				}if (inputArray[j].equals(inputArray[j-2])) {
+    				}
+    				if (inputArray[j].equals(inputArray[j-2])) {
     					inputArray[j-2] = "duplicate";
     				}
 				}
