@@ -28,7 +28,7 @@ public class TextFieldValidator {
 	 **/
 	public TextFieldValidator(JTextField myTarget) {
 		target = myTarget;
-		regExp = "^[0-9]$";
+		regExp = "//w";
 		errorColor = Color.RED;
 		validateStatus = true;
     }
