@@ -27,10 +27,11 @@ public class TextFieldValidator {
 	 * @param The target textfield
 	 **/
 	public TextFieldValidator(JTextField myTarget) {
-		target = myTarget;
-		regExp = "//w";
-		errorColor = Color.RED;
-		validateStatus = true;
+//		target = myTarget;
+//		regExp = "//w";
+//		errorColor = Color.RED;
+//		validateStatus = true;
+		this(myTarget, Color.RED);
     }
 	
 	/** Sets the regular expression
