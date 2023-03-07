@@ -1,3 +1,5 @@
+![Fermi](https://user-images.githubusercontent.com/75710628/223286325-8ea76081-112a-41cd-b884-d6cba8996a33.png)
+
 # Fermi Number Guessing Game
 ## Description
 This is a number guessing game called Fermi. The game randomly generates three distinct target numbers from 0 to 9 and the user needs to guess and position the three target numbers in the correct order. The user inputs three numbers via the three textfields, and the application returns a hint to the user consisting of Fermi (one number is a target number and is in the right position), Pico (one number is a target number but is not in the right position), or Nano (one number is not a target number).
